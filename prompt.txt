@@ -1,49 +1,106 @@
-# MASTER PROJECT PROMPT
-## Complete Development Guide: MIPS Factorial & nCr Visual CPU Architecture Simulator
-### Python | VS Code | MIPS Assembly | CPU Simulation | GUI | Algorithm Comparison | 4-Member Team
-
-ฉันต้องการให้คุณทำหน้าที่เป็น **Senior Software Engineer, Computer Architecture Specialist, MIPS Assembly Expert, Python Developer, System Architect, GUI Designer, Software Integration Engineer และ Project Instructor** เพื่อเป็นผู้สอนและที่ปรึกษาในการพัฒนาโปรเจกต์รายวิชา Computer Architecture ตั้งแต่เริ่มต้นจนเสร็จสมบูรณ์ โดยโปรเจกต์มีชื่อว่า **“MIPS-Based Factorial and Combination Calculator with Interactive Visual CPU Architecture Simulator”** เป็นโปรแกรมที่พัฒนาด้วยภาษา Python บน Visual Studio Code (VS Code) โดยใช้ MIPS CPU Simulator เวอร์ชัน cpuSimV7 ที่อาจารย์มอบให้เป็นโครงสร้างพื้นฐาน แล้วปรับปรุงและเพิ่มเติมความสามารถให้เป็นระบบจำลอง CPU ที่มี Graphical User Interface (GUI) สามารถรับ Input จากผู้ใช้ ประมวลผล Factorial และ Combination (nCr/nCk) ด้วยโปรแกรม MIPS Assembly แสดง Output และจำลองการทำงานภายในสถาปัตยกรรม CPU อย่างชัดเจน ตั้งแต่การ Fetch Instruction, Decode Instruction, Execute Instruction, ALU Operations, Registers, Program Counter, Memory, Branch/Jump, Subroutine และ Machine Code รวมถึงมีระบบเปรียบเทียบประสิทธิภาพของอัลกอริทึมผ่านจำนวน Instruction ที่ Execute จริง โดยโปรเจกต์นี้มีสมาชิกทั้งหมด 4 คน ซึ่งต้องสามารถแบ่งงานพัฒนาเป็นโมดูลแยกจากกันได้ แล้วนำทุกโมดูลมาทำงานร่วมกันเป็นโปรแกรมเดียวที่สามารถรัน ทดสอบ สาธิต และส่งอาจารย์ได้จริง
-
-## 1. Project Objectives and Fundamental Requirements
-
-วัตถุประสงค์หลักของโปรเจกต์คือการศึกษาและประยุกต์ใช้ความรู้ด้าน Computer Architecture และ Instruction Set Architecture (ISA) ผ่านการพัฒนา Software-Based MIPS CPU Simulator โดยเน้นการแสดงให้เห็นว่า CPU ประมวลผลโปรแกรมอย่างไรในระดับ Assembly Instruction และ Register Operations ไม่ใช่สร้างเครื่องคิดเลข Python ทั่วไป ระบบต้องทำให้ผู้ใช้เข้าใจความสัมพันธ์ระหว่าง High-Level Algorithm, MIPS Assembly, Machine Code, Registers, ALU, Memory และ CPU Execution Cycle โดยการคำนวณ Factorial และ nCr ต้องเกิดจากการ Execute คำสั่ง MIPS ภายใน Simulator จริง ไม่อนุญาตให้ใช้ Python `math.factorial()`, math.comb() หรือ Python Function อื่นเป็นตัวคำนวณผลลัพธ์หลักแล้วนำคำตอบไปแสดงบน GUI โดยตรง ทั้งนี้สามารถใช้ Python Reference Implementation เพื่อทดสอบและตรวจสอบความถูกต้องของผลลัพธ์จาก Simulator ได้
-
+MASTER PROJECT PROMPT
+Complete Development Guide: MIPS Factorial & nCr Visual CPU Architecture Simulator
+Python | VS Code | MIPS Assembly | CPU Simulation | GUI | Algorithm Comparison | 4-Member Team
+ฉันต้องการให้คุณทำหน้าที่เป็น Senior Software Engineer, Computer Architecture Specialist, MIPS Assembly Expert, Python Developer, System Architect, GUI Designer, Software Integration Engineer และ Project Instructor เพื่อเป็นผู้สอนและที่ปรึกษาในการพัฒนาโปรเจกต์รายวิชา Computer Architecture ตั้งแต่เริ่มต้นจนเสร็จสมบูรณ์ โดยโปรเจกต์มีชื่อว่า “MIPS-Based Factorial and Combination Calculator with Interactive Visual CPU Architecture Simulator” เป็นโปรแกรมที่พัฒนาด้วยภาษา Python บน Visual Studio Code (VS Code) โดยใช้ MIPS CPU Simulator เวอร์ชัน cpuSimV7 ที่อาจารย์มอบให้เป็นโครงสร้างพื้นฐาน แล้วปรับปรุงและเพิ่มเติมความสามารถให้เป็นระบบจำลอง CPU ที่มี Graphical User Interface (GUI) สามารถรับ Input จากผู้ใช้ ประมวลผล Factorial และ Combination (nCr/nCk) ด้วยโปรแกรม MIPS Assembly แสดง Output และจำลองการทำงานภายในสถาปัตยกรรม CPU อย่างชัดเจน ตั้งแต่การ Fetch Instruction, Decode Instruction, Execute Instruction, ALU Operations, Registers, Program Counter, Memory, Branch/Jump, Subroutine และ Machine Code รวมถึงมีระบบเปรียบเทียบประสิทธิภาพของอัลกอริทึมผ่านจำนวน Instruction ที่ Execute จริง โดยโปรเจกต์นี้มีสมาชิกทั้งหมด 4 คน ซึ่งต้องสามารถแบ่งงานพัฒนาเป็นโมดูลแยกจากกันได้ แล้วนำทุกโมดูลมาทำงานร่วมกันเป็นโปรแกรมเดียวที่สามารถรัน ทดสอบ สาธิต และส่งอาจารย์ได้จริง
+1. Project Objectives and Fundamental Requirements
+วัตถุประสงค์หลักของโปรเจกต์คือการศึกษาและประยุกต์ใช้ความรู้ด้าน Computer Architecture และ Instruction Set Architecture (ISA) ผ่านการพัฒนา Software-Based MIPS CPU Simulator โดยเน้นการแสดงให้เห็นว่า CPU ประมวลผลโปรแกรมอย่างไรในระดับ Assembly Instruction และ Register Operations ไม่ใช่สร้างเครื่องคิดเลข Python ทั่วไป ระบบต้องทำให้ผู้ใช้เข้าใจความสัมพันธ์ระหว่าง High-Level Algorithm, MIPS Assembly, Machine Code, Registers, ALU, Memory และ CPU Execution Cycle โดยการคำนวณ Factorial และ nCr ต้องเกิดจากการ Execute คำสั่ง MIPS ภายใน Simulator จริง ไม่อนุญาตให้ใช้ Python math.factorial(), math.comb() หรือ Python Function อื่นเป็นตัวคำนวณผลลัพธ์หลักแล้วนำคำตอบไปแสดงบน GUI โดยตรง ทั้งนี้สามารถใช้ Python Reference Implementation เพื่อทดสอบและตรวจสอบความถูกต้องของผลลัพธ์จาก Simulator ได้
 ระบบต้องสามารถเลือกคำนวณ Factorial หรือ Combination รับค่าจำนวนเต็ม n และ r จากผู้ใช้ ตรวจสอบความถูกต้องของ Input โหลดโปรแกรม MIPS Assembly ที่เหมาะสมเข้าสู่ Simulator กำหนดค่าเริ่มต้นของ Registers/Memory และเริ่มจำลองการทำงานของ CPU ได้ โดยผู้ใช้ต้องสามารถเลือกประมวลผลแบบ Run ต่อเนื่อง หรือ Step ทีละ Instruction เพื่อสังเกตการเปลี่ยนแปลงของ Program Counter, Registers, Memory และ ALU ในแต่ละขั้นตอน เมื่อโปรแกรม Execute เสร็จต้องแสดงผลลัพธ์ที่ได้จาก CPU พร้อมจำนวน Instruction ที่ Execute และข้อมูลการทำงานที่เกี่ยวข้อง
-
-## 2. Original cpuSimV7 and Existing Source Files
-
-โปรเจกต์ต้องใช้ไฟล์ต้นฉบับจากอาจารย์เป็นฐาน ได้แก่ `cpu.py`, `isa.py`, `memory.py`, `main.py`, instructions.txt และเอกสารประกอบที่มีอยู่ รวมถึงไฟล์ตัวอย่าง nCkbound.py และไฟล์ Factorial แบบไม่ใช้การคูณจากชุด factorial_no_multiplication.py.zip โดยต้องตรวจสอบโค้ดต้นฉบับทั้งหมดก่อนแก้ไข และแยกให้ชัดเจนว่าโค้ดส่วนใดเป็นของอาจารย์ ส่วนใดเป็นการแก้บัค และส่วนใดเป็นฟีเจอร์ที่กลุ่มพัฒนาเพิ่มเติม ห้ามสมมติว่า Simulator รองรับคำสั่งหรือความสามารถที่ยังไม่ได้ตรวจสอบจากโค้ดจริง
-
+2. Original cpuSimV7 and Existing Source Files
+โปรเจกต์ต้องใช้ไฟล์ต้นฉบับจากอาจารย์เป็นฐาน ได้แก่ cpu.py, isa.py, memory.py, main.py, instructions.txt และเอกสารประกอบที่มีอยู่ รวมถึงไฟล์ตัวอย่าง nCkbound.py และไฟล์ Factorial แบบไม่ใช้การคูณจากชุด factorial_no_multiplication.py.zip โดยต้องตรวจสอบโค้ดต้นฉบับทั้งหมดก่อนแก้ไข และแยกให้ชัดเจนว่าโค้ดส่วนใดเป็นของอาจารย์ ส่วนใดเป็นการแก้บัค และส่วนใดเป็นฟีเจอร์ที่กลุ่มพัฒนาเพิ่มเติม ห้ามสมมติว่า Simulator รองรับคำสั่งหรือความสามารถที่ยังไม่ได้ตรวจสอบจากโค้ดจริง
 จาก cpu.py ที่ได้รับ Simulator มี Registers จำนวน 32 ตัว, Program Counter (PC), Instruction Fetch, Instruction Execution, Register Validation และ Debug Output ส่วน isa.py มี Instruction Parsing, Operand Preparation และ Assembly-to-Hex Encoding บางส่วน ขณะที่ memory.py ใช้ Dictionary สำหรับจำลอง Memory และ main.py ทำหน้าที่โหลด Instruction จากไฟล์แล้วสร้าง CPU เพื่อรันโปรแกรม โดย Simulator รองรับคำสั่งพื้นฐานบางส่วน เช่น ADD, ADDI, ADDIU, ORI, LUI, LW, SW, SLTI, SLTIU, BEQ, BNE, J และ HALT แต่ยังต้องปรับปรุงความสามารถด้าน Step Execution, Reset, Pause, CPU State API, Subroutine, JAL/JR, Register Convention, Stack Support, Machine Code Encoding, Instruction Counting และ GUI Integration รวมถึงต้องตรวจสอบบัคที่เกี่ยวข้องกับ Program Counter, Branch, Register Overflow, Memory Addressing และ Instruction Encoding ก่อนเริ่มพัฒนาโมดูลขั้นสูง
-
 ต้องรักษาโครงสร้างและแนวคิดของ Simulator ที่อาจารย์ให้มาให้มากที่สุด โดยสามารถ Refactor เพื่อให้โค้ดเป็น Modular และรองรับ GUI ได้ แต่ต้องไม่เปลี่ยนระบบเดิมทั้งหมดโดยไม่มีเหตุผล และต้องมี Regression Tests เพื่อยืนยันว่าคำสั่งที่เคยทำงานได้ยังทำงานถูกต้องหลังการปรับปรุง
-
-## 3. Factorial Algorithm Development
-
+3. Factorial Algorithm Development
 โปรแกรมต้องสามารถคำนวณ Factorial (n!) ผ่าน MIPS CPU Simulator โดยใช้แนวคิดจากไฟล์ Factorial แบบไม่ใช้ Multiplication ที่อาจารย์ให้มาเป็นต้นแบบ ซึ่งใช้อัลกอริทึม Repeated Addition แทนการใช้คำสั่ง MUL โดยตรง ตัวอย่างเช่นการคำนวณ 5! = 120 ต้องเกิดจากการวน Loop เพื่อสร้างผลคูณผ่านคำสั่งพื้นฐาน เช่น ADD, ADDI, SLT/SLTI, BEQ, BNE และ J ตามความสามารถของ Simulator ที่พัฒนาแล้ว โดยต้องมีการกำหนด Registers สำหรับ Input, Accumulator, Loop Counter, Temporary Value และ Output อย่างชัดเจน
-
 Factorial ต้องพัฒนาเป็น MIPS Subroutine ที่สามารถเรียกใช้งานซ้ำได้ โดยแนะนำให้กำหนด $a0 หรือ Register 4 เป็น Input n และ $v0 หรือ Register 2 เป็น Output n! พร้อมใช้ Temporary Registers ตาม Calling Convention ที่กลุ่มกำหนดร่วมกัน และต้องรองรับการเรียกและกลับจาก Subroutine ผ่าน JAL/JR หรือกลไกที่ถูกต้องตามแบบจำลอง MIPS ที่เลือกใช้ โดยต้องทดสอบกรณี 0! = 1, 1! = 1, 5! = 120, 10! = 3,628,800 และ 12! = 479,001,600 รวมถึงตรวจสอบ Overflow สำหรับจำนวนที่เกินขอบเขต Signed 32-bit
-
-## 4. Combination (nCr/nCk) Algorithm Development
-
-โปรแกรมต้องรองรับการคำนวณ Combination หรือ nCr/nCk อย่างน้อยสองวิธีเพื่อใช้เปรียบเทียบประสิทธิภาพ โดย **วิธีที่หนึ่งเป็น Factorial-Based Method** ตามสูตร C(n,r) = n!/[r!(n-r)!] ซึ่งต้องเรียกใช้ Factorial Subroutine ที่พัฒนาไว้แล้วจำนวนสามครั้ง โดยไม่เขียน Factorial Algorithm ซ้ำภายในโปรแกรม nCr ต้องมีการเก็บค่าผลลัพธ์ระหว่างการเรียก Subroutine การจัดการ Return Address การเก็บรักษา Registers ที่จำเป็น และการหารจำนวนเต็มอย่างถูกต้อง โดยอาจพัฒนาวิธีหารจากการลบซ้ำหรือวิธี Arithmetic พื้นฐานที่ CPU Simulator รองรับ พร้อมตรวจสอบกรณีหารด้วยศูนย์และ Overflow
-
-**วิธีที่สองเป็น Optimized nCk without Multiplication/Division** โดยใช้แนวคิดจากไฟล์ nCkbound.py ที่อาจารย์ให้มา ซึ่งลดการคำนวณ Factorial เต็มจำนวนด้วยการกำหนด a = min(r,n-r) และ b = max(r,n-r) จากนั้นคำนวณผลคูณ n(n-1)...(b+1) และหารด้วย a! โดยใช้ Repeated Addition และวิธีหารด้วยการบวกสะสมแทนคำสั่ง MUL/DIV ต้องแปลงอัลกอริทึมดังกล่าวเป็น MIPS Assembly ที่ Execute ผ่าน CPU Simulator จริง และทดสอบความถูกต้องเทียบกับ Factorial-Based Method และ Python Reference Implementation โดยต้องตรวจสอบเงื่อนไข nC0 = 1, nCn = 1, 5C2 = 10, 6C3 = 20, 10C5 = 252 และกรณีอื่น ๆ ที่เหมาะสม
-
+4. Combination (nCr/nCk) Algorithm Development
+โปรแกรมต้องรองรับการคำนวณ Combination หรือ nCr/nCk อย่างน้อยสองวิธีเพื่อใช้เปรียบเทียบประสิทธิภาพ โดย วิธีที่หนึ่งเป็น Factorial-Based Method ตามสูตร C(n,r) = n!/[r!(n-r)!] ซึ่งต้องเรียกใช้ Factorial Subroutine ที่พัฒนาไว้แล้วจำนวนสามครั้ง โดยไม่เขียน Factorial Algorithm ซ้ำภายในโปรแกรม nCr ต้องมีการเก็บค่าผลลัพธ์ระหว่างการเรียก Subroutine การจัดการ Return Address การเก็บรักษา Registers ที่จำเป็น และการหารจำนวนเต็มอย่างถูกต้อง โดยอาจพัฒนาวิธีหารจากการลบซ้ำหรือวิธี Arithmetic พื้นฐานที่ CPU Simulator รองรับ พร้อมตรวจสอบกรณีหารด้วยศูนย์และ Overflow
+วิธีที่สองเป็น Optimized nCk without Multiplication/Division โดยใช้แนวคิดจากไฟล์ nCkbound.py ที่อาจารย์ให้มา ซึ่งลดการคำนวณ Factorial เต็มจำนวนด้วยการกำหนด a = min(r,n-r) และ b = max(r,n-r) จากนั้นคำนวณผลคูณ n(n-1)...(b+1) และหารด้วย a! โดยใช้ Repeated Addition และวิธีหารด้วยการบวกสะสมแทนคำสั่ง MUL/DIV ต้องแปลงอัลกอริทึมดังกล่าวเป็น MIPS Assembly ที่ Execute ผ่าน CPU Simulator จริง และทดสอบความถูกต้องเทียบกับ Factorial-Based Method และ Python Reference Implementation โดยต้องตรวจสอบเงื่อนไข nC0 = 1, nCn = 1, 5C2 = 10, 6C3 = 20, 10C5 = 252 และกรณีอื่น ๆ ที่เหมาะสม
 ให้เริ่มต้นกำหนดขอบเขต Factorial-Based Method ที่ n ≤ 12 เนื่องจากข้อจำกัดของ Signed 32-bit Factorial ส่วน Optimized nCk สามารถศึกษาการขยายขอบเขตไปถึง n ≤ 26 ตามตัวอย่างของอาจารย์ได้หลังจากทดสอบการทำงานบน Simulator จริง โดยต้องไม่สมมติว่าทุก Intermediate Value ปลอดภัยเพียงเพราะผลลัพธ์สุดท้ายอยู่ในช่วง 32 บิต และหากต้องการเพิ่ม Pascal's Triangle หรือ Dynamic Programming เป็นอัลกอริทึมที่สาม สามารถทำเป็น Optional Enhancement ภายหลังได้
-
-## 5. CPU Simulator Architecture and Instruction Execution
-
-ต้องปรับปรุง MIPS CPU Simulator ให้รองรับการประมวลผลแบบ Instruction-by-Instruction อย่างถูกต้อง โดยแยกการทำงานออกเป็น Fetch, Decode, Execute, State Update และ Trace Recording และเพิ่ม API เช่น `step()`, `reset()`, get_state() และการควบคุม Run/Pause ผ่าน Controller โดยต้องกำหนดให้ชัดเจนว่า API ใดอยู่ใน CPU Engine และ API ใดอยู่ใน GUI Controller เพื่อหลีกเลี่ยงการซ้ำซ้อนของความรับผิดชอบ
-
+5. CPU Simulator Architecture and Instruction Execution
+ต้องปรับปรุง MIPS CPU Simulator ให้รองรับการประมวลผลแบบ Instruction-by-Instruction อย่างถูกต้อง โดยแยกการทำงานออกเป็น Fetch, Decode, Execute, State Update และ Trace Recording และเพิ่ม API เช่น step(), reset(), get_state() และการควบคุม Run/Pause ผ่าน Controller โดยต้องกำหนดให้ชัดเจนว่า API ใดอยู่ใน CPU Engine และ API ใดอยู่ใน GUI Controller เพื่อหลีกเลี่ยงการซ้ำซ้อนของความรับผิดชอบ
 การกด Step หนึ่งครั้งต้อง Execute เพียงหนึ่ง Instruction และอัปเดต Program Counter, Registers, Memory, Instruction Counter และ Execution Trace อย่างถูกต้อง ส่วน Run ต้องสามารถ Execute ต่อเนื่องจนพบ HALT หรือเงื่อนไขสิ้นสุด โดยไม่ทำให้ GUI ค้าง และ Pause ต้องหยุดการประมวลผลชั่วคราวโดยยังรักษาสถานะ CPU ไว้ ส่วน Reset ต้องสามารถคืนสถานะเริ่มต้นของโปรแกรมปัจจุบันได้อย่างถูกต้อง รวมถึง Reset Registers, PC, Memory, Execution Counter และ Trace ตามที่กำหนด
-
-ต้องเพิ่มหรือแก้ไข Instruction ที่จำเป็นสำหรับ Factorial และ nCr โดยเฉพาะ JAL, JR, SLT, ADD/SUB และคำสั่งอื่นตามความต้องการจริง พร้อมพัฒนาระบบ Return Address และ Stack Support เมื่อจำเป็น ต้องกำหนด Register Convention สำหรับ `$zero`, `$v0`, `$a0`, `$a1`, `$t0`–`$t9`, $sp และ $ra รวมถึงกำหนดกติกา PC Update และ Branch/Jump Semantics ให้สอดคล้องกันทั้ง Simulator และ Assembly Programs โดยต้องระบุด้วยว่าแบบจำลองรองรับหรือไม่รองรับ Branch Delay Slot และไม่อ้างว่าเป็น Pipeline Simulator หากไม่ได้จำลอง Pipeline จริง
-
+ต้องเพิ่มหรือแก้ไข Instruction ที่จำเป็นสำหรับ Factorial และ nCr โดยเฉพาะ JAL, JR, SLT, ADD/SUB และคำสั่งอื่นตามความต้องการจริง พร้อมพัฒนาระบบ Return Address และ Stack Support เมื่อจำเป็น ต้องกำหนด Register Convention สำหรับ $zero, $v0, $a0, $a1, $t0–$t9, $sp และ $ra รวมถึงกำหนดกติกา PC Update และ Branch/Jump Semantics ให้สอดคล้องกันทั้ง Simulator และ Assembly Programs โดยต้องระบุด้วยว่าแบบจำลองรองรับหรือไม่รองรับ Branch Delay Slot และไม่อ้างว่าเป็น Pipeline Simulator หากไม่ได้จำลอง Pipeline จริง
 ต้องเพิ่มระบบ Instruction Counter ที่นับจำนวนคำสั่งซึ่ง CPU Execute จริง (Dynamic Instruction Count) รวมถึงอาจเพิ่มสถิติ Branch Count, Arithmetic Instruction Count, Memory Read Count, Memory Write Count และ Subroutine Call Count เพื่อใช้ในการวิเคราะห์ประสิทธิภาพ โดยต้องมี Execution Limit หรือ Maximum Instruction Steps เพื่อป้องกัน Infinite Loop และมี Error Handling สำหรับ Unknown Opcode, Invalid Register, Invalid Memory Access และ Arithmetic Overflow ตามขอบเขตที่กำหนด
-
-## 6. Opcode, Machine Code and ISA Visualization
-
+6. Opcode, Machine Code and ISA Visualization
 ระบบต้องสามารถแสดง Assembly Instruction ควบคู่กับ Machine Code ในรูปแบบ Binary 32-bit และ Hexadecimal 8 หลัก สำหรับคำสั่งที่รองรับ พร้อมแสดงรายละเอียด Instruction Type เช่น R-Type, I-Type และ J-Type รวมถึง Opcode, Register Fields, Immediate Value, Address Field และ Function Code ตามรูปแบบของคำสั่งนั้น ๆ โดยต้องปรับปรุง isa.py และ decode3() ให้สามารถ Encode Instruction ได้ถูกต้อง และต้องตรวจสอบว่าคำสั่งที่มีชื่อใน Instruction Dictionary สามารถ Decode, Encode และ Execute ได้จริงตามระดับการรองรับที่กำหนด
+ต้องสร้าง Unit Tests สำหรับตรวจสอบ Machine Code Encoding และไม่แสดง Hex Code ที่ไม่ถูกต้องเป็น Machine Code จริง โดยต้องแยกคำสั่งมาตรฐาน MIPS ออกจาก Simulator-Specific Commands เช่น .ORG และ HALT ที่อาจเป็นคำสั่งเฉพาะของโปรแกรมจำลอง หากพัฒนาเพิ่มเติมได้ให้รองรับการ Decode Machine Code กลับเป็น Instruction Fields และการ Fetch Machine Code จาก Instruction Memory จริง แต่หากยัง Execute จาก Parsed Instruction Objects ต้องระบุข้อจำกัดดังกล่าวอย่างชัดเจนในเอกสารและ GUI
+7. Graphical User Interface and Interactive Visualization
+ต้องพัฒนา GUI ด้วย Python Tkinter เป็นแนวทางหลัก และสามารถใช้ Matplotlib สำหรับกราฟ โดยออกแบบหน้าจอให้มีลักษณะเป็น Interactive CPU Architecture Simulator ที่ใช้งานง่ายและเหมาะสำหรับการสาธิตในรายวิชา Computer Architecture หน้าจอหลักต้องประกอบด้วย Input Panel สำหรับเลือก Factorial หรือ nCr กรอก n และ r และเลือกอัลกอริทึม, Control Panel สำหรับปุ่ม Run, Pause, Step และ Reset, Instruction Panel สำหรับแสดง Assembly Code และ Current Instruction, Register Panel สำหรับแสดงค่า Registers ทั้ง 32 ตัว, Memory Panel สำหรับแสดง Address และ Value, CPU Visualization Panel สำหรับแสดง Program Counter, Instruction Decoder, Register File, ALU และ Data Flow, Output Panel สำหรับแสดงผลลัพธ์การคำนวณ และ Performance Panel สำหรับแสดง Execution Statistics และกราฟเปรียบเทียบอัลกอริทึม
+เมื่อผู้ใช้กด Step หนึ่งครั้ง GUI ต้องแสดง Instruction ที่ CPU Execute พร้อม Highlight บรรทัดปัจจุบัน แสดง PC ก่อนและหลัง Execute แสดง Registers ที่มีการเปลี่ยนแปลง แสดง Memory Address ที่ถูกอ่านหรือเขียน และแสดง ALU Operation ที่เกิดขึ้นตามข้อมูลที่ CPU Simulator ส่งมา โดยสามารถแสดงค่าในรูปแบบ Decimal, Hexadecimal และ Binary ตามความเหมาะสม และควรมีระบบปรับ Simulation Speed สำหรับ Run Mode รวมถึงสามารถเลื่อนดู Instruction Trace ย้อนหลังได้
+CPU Architecture Visualization ต้องช่วยให้ผู้ใช้เห็นความสัมพันธ์ระหว่าง Fetch–Decode–Execute และ Data Flow อย่างเข้าใจง่าย โดยอาจใช้ Diagram แสดงการส่งข้อมูลจาก PC ไปยัง Instruction Memory ผ่าน Decoder ไปยัง Register File และ ALU จากนั้นแสดงการ Write Back หรือการเปลี่ยน PC ตาม Branch/Jump ทั้งนี้ต้องทำให้ภาพเคลื่อนไหวหรือ Highlight สอดคล้องกับสถานะจริงของ Simulator ไม่ใช่แสดง Animation ที่ไม่มีความสัมพันธ์กับคำสั่งที่กำลัง Execute และต้องไม่อ้างว่าเป็นการจำลอง Hardware Clock Cycle จริงหากไม่ได้พัฒนา Timing Model
+8. Instruction Trace and Memory Visualization
+ต้องมีระบบ Instruction Trace ที่บันทึกประวัติการ Execute แต่ละคำสั่งอย่างเป็นระบบ โดยข้อมูลควรประกอบด้วย Step Number, Program Counter, Assembly Instruction, Machine Code, Opcode, Register Changes, Memory Access, ALU Operation, Branch Decision และ Execution Status ตามข้อมูลที่ Simulator รองรับ และต้องสามารถแสดง Trace แบบเรียลไทม์บน GUI ได้โดยไม่ทำให้การประมวลผลช้าหรือหน้าจอค้าง พร้อมเพิ่มการ Export Trace เป็น CSV หรือ Text File หากสามารถพัฒนาได้
+Memory Visualization ต้องสามารถแสดง Memory Contents เป็นตาราง Address/Value และ Highlight ตำแหน่งที่ CPU อ่านหรือเขียนใน Step ล่าสุด โดยควรแยกมุมมอง Instruction Memory และ Data Memory ในเชิงการนำเสนอ และกำหนด Memory Model ให้ชัดเจนว่า Addressing, Word Size, Byte Order และ Read/Write Operations ทำงานอย่างไร เพื่อให้การแสดงผลถูกต้องตาม Simulator จริง
+9. Algorithm Performance Comparison and Graphs
+ต้องมีระบบเปรียบเทียบประสิทธิภาพของการคำนวณ nCr อย่างน้อยสองวิธี ได้แก่ Factorial-Based Method และ Optimized nCk without MUL/DIV โดยใช้ค่า n และ r เดียวกัน และ Execute ผ่าน CPU Simulator ภายใต้เงื่อนไขเดียวกัน จากนั้นเก็บข้อมูล Dynamic Instruction Count, Branch Count, Arithmetic Operations และ Memory Access Statistics ตามที่ระบบรองรับ เพื่อนำมาแสดงในรูปแบบตารางและกราฟ Bar Chart หรือ Line Chart ผ่าน Matplotlib ที่ฝังอยู่ใน GUI
+ต้องสามารถทดสอบ Input หลายชุด เช่น 5C2, 6C3, 8C4 และ 10C5 เพื่อแสดงความแตกต่างของจำนวน Instruction และต้องตรวจสอบว่าทั้งสองอัลกอริทึมให้ผลลัพธ์ตรงกันก่อนนำข้อมูลไปเปรียบเทียบ โดยต้องอธิบายว่า Dynamic Instruction Count เป็นตัวชี้วัดจำนวนคำสั่งที่ Execute ไม่ใช่ Execution Time หรือ Clock Cycles ของ CPU Hardware จริง และต้องไม่สรุปเรื่องความเร็วของ Hardware โดยไม่มี Timing Model รองรับ
+10. Modular Project Structure
+ต้องจัดโครงสร้างโปรเจกต์ให้แต่ละส่วนแยกกันได้และสามารถ Import/เรียกใช้ร่วมกันได้อย่างถูกต้อง โดยเสนอให้ใช้โครงสร้างดังนี้
+MIPS-Visual-Simulator/
+│
+├── main.py
+├── requirements.txt
+├── README.md
+│
+├── simulator/
+│   ├── __init__.py
+│   ├── cpu.py
+│   ├── isa.py
+│   └── memory.py
+│
+├── algorithms/
+│   ├── __init__.py
+│   ├── factorial.py
+│   ├── combination.py
+│   └── optimized_nck.py
+│
+├── programs/
+│   ├── factorial.asm
+│   ├── ncr_factorial.asm
+│   └── nck_optimized.asm
+│
+├── interface/
+│   ├── __init__.py
+│   ├── gui.py
+│   ├── cpu_visualizer.py
+│   └── performance_chart.py
+│
+├── integration/
+│   ├── __init__.py
+│   └── controller.py
+│
+├── references/
+│   ├── nCkbound.py
+│   └── factorial_examples/
+│
+└── tests/
+    ├── test_cpu.py
+    ├── test_isa.py
+    ├── test_factorial.py
+    ├── test_combination.py
+    └── test_integration.py
+ไฟล์ใน simulator/ รับผิดชอบการจำลอง CPU และ Instruction Set, ไฟล์ใน algorithms/ รับผิดชอบการเตรียม Algorithm และโปรแกรม MIPS, ไฟล์ใน programs/ เก็บ Assembly Programs ที่ CPU จะ Execute, ไฟล์ใน interface/ รับผิดชอบ GUI และ Visualization, ไฟล์ใน integration/ รับผิดชอบการเชื่อม Input/Output และ CPU State ระหว่างโมดูล, ไฟล์ใน tests/ ใช้ตรวจสอบความถูกต้อง และ main.py เป็น Entry Point สำหรับเปิดโปรแกรม โดยสามารถปรับโครงสร้างตามข้อจำกัดจริงของ cpuSimV7 ได้หากมีเหตุผลและอธิบายการเปลี่ยนแปลงชัดเจน
+11. Team Responsibilities — 4 Members
+Member 1: Factorial and Arithmetic Developer รับผิดชอบการศึกษาไฟล์ Factorial ตัวอย่างของอาจารย์ การออกแบบ Factorial Algorithm การแปลงเป็น MIPS Assembly การพัฒนา Repeated Addition Multiplication การจัดการ Register Input/Output การสร้าง Factorial Subroutine ที่เรียกใช้ซ้ำได้ การทดสอบ Factorial และการจัดทำเอกสารอธิบาย Flowchart, Register Usage และการทำงานของ Assembly โดยต้องส่งมอบโปรแกรม Factorial ที่สามารถ Execute ผ่าน CPU Simulator ได้จริง และสามารถให้ Member 2 เรียกใช้ Subroutine ได้
+Member 2: Combination and Algorithm Comparison Developer รับผิดชอบการพัฒนา nCr แบบ Factorial-Based Method ที่เรียกใช้ Factorial Subroutine จาก Member 1 การพัฒนาวิธีหารจำนวนเต็มที่จำเป็น การศึกษาและแปลง nCkbound.py เป็น MIPS Assembly เพื่อสร้าง Optimized nCk การทดสอบความถูกต้องของทั้งสองวิธี การจัดเตรียม Test Cases และการกำหนดข้อมูลเปรียบเทียบอัลกอริทึม โดยต้องส่งมอบโปรแกรม nCr สองวิธีที่สามารถ Execute ผ่าน Simulator และให้ผลลัพธ์ตรงกันในขอบเขตที่รองรับร่วมกัน
+Member 3: CPU Simulator and ISA Developer รับผิดชอบการวิเคราะห์และปรับปรุงโค้ด cpuSimV7 ของอาจารย์ ได้แก่ cpu.py, isa.py และ memory.py โดยต้องแก้ไขบัค พัฒนา Step Execution, Reset, CPU State API, Register/PC Handling, JAL/JR, Subroutine Support, Machine Code Encoding, Instruction Counter, Trace Data และ Memory Operations รวมถึงสร้าง Unit Tests สำหรับ Instruction Execution และ ISA เพื่อให้ Simulator เป็น Core Engine ที่สามารถเชื่อมต่อกับ Algorithm และ GUI ได้อย่างถูกต้อง
+Member 4: GUI, Visualization and Integration Developer รับผิดชอบการพัฒนา GUI ด้วย Tkinter, CPU Architecture Visualization, Register Panel, Memory Panel, Instruction Trace, Opcode/Machine Code Display, Run/Pause/Step/Reset Controls, Performance Charts และ Integration Controller โดยต้องสร้างระบบเชื่อม GUI กับ CPU Simulator ผ่าน API ที่ตกลงร่วมกัน และสามารถใช้ Mock CPU State ระหว่างการพัฒนา GUI ได้ แต่เมื่อรวมระบบแล้วต้องใช้ข้อมูลจาก Simulator จริงทั้งหมด ไม่ใช้ Mock Data ในการแสดงผลการคำนวณหรือ Performance Results
+สมาชิกทั้ง 4 คนต้องร่วมกันกำหนด API Contract, Register Convention, Instruction Requirements, Test Cases และ Integration Milestones ตั้งแต่ต้น โดยใช้ Git/GitHub สำหรับ Version Control แยก Feature Branch ตามหน้าที่และรวมโค้ดผ่าน Pull Request เพื่อลดปัญหา Merge Conflict และให้ทุกคนมีส่วนร่วมในการ Integration Testing, Documentation และการเตรียม Presentation
+12. Step-by-Step Development Roadmap
+ฉันต้องการให้คุณสอนสมาชิกทั้ง 4 คนทำโปรเจกต์ตั้งแต่เริ่มต้นจนจบในรูปแบบ Workshop ทีละขั้น โดยแต่ละขั้นต้องระบุวัตถุประสงค์ สมาชิกที่รับผิดชอบ ไฟล์ที่ต้องสร้างหรือแก้ไข โค้ดที่ต้องเขียน คำอธิบายโค้ด วิธีรันใน VS Code ผลลัพธ์ที่คาดหวัง วิธีทดสอบ ปัญหาที่อาจพบ และเกณฑ์ว่าขั้นนั้นสำเร็จแล้วหรือยัง พร้อมอธิบายว่าคนอื่นสามารถทำงานอะไรคู่ขนานได้ในระหว่างนั้น
+ให้แบ่งการพัฒนาเป็น Phase 1 การติดตั้ง Python, VS Code, Git และสร้าง Project Structure; Phase 2 การนำเข้าและทดสอบ cpuSimV7 เดิม; Phase 3 การวิเคราะห์ ISA และพัฒนา Step Execution/CPU State; Phase 4 การพัฒนา Factorial MIPS Algorithm; Phase 5 การพัฒนา JAL/JR และ Factorial Subroutine; Phase 6 การพัฒนา nCr ที่เรียก Factorial; Phase 7 การพัฒนา Optimized nCk จากไฟล์อาจารย์; Phase 8 การพัฒนา GUI และ Run/Pause/Step/Reset; Phase 9 การเพิ่ม CPU Visualization, Registers, Memory, Instruction Trace และ Machine Code; Phase 10 การเพิ่ม Instruction Counter และ Performance Charts; Phase 11 การรวมระบบและทดสอบทุกโมดูล; และ Phase 12 การจัดทำ README, Report, Flowchart, Architecture Diagram, Test Results และการเตรียม Demo สำหรับนำเสนออาจารย์
+ต้องให้ความสำคัญกับการพัฒนา Minimum Viable Product (MVP) ก่อน โดย MVP ต้องสามารถรัน Factorial ผ่าน CPU Simulator และแสดงผลพร้อม Step Execution ได้ จากนั้นจึงขยายเป็น nCr และ GUI ที่สมบูรณ์ ก่อนเพิ่ม Performance Comparison และ Advanced Visualization เพื่อให้มีโปรแกรมที่ใช้งานได้จริงตลอดกระบวนการพัฒนา ไม่ใช่พัฒนาหลายส่วนพร้อมกันโดยยังไม่มีระบบหลักที่ทำงานได้
+13. Integration, Testing and Quality Requirements
+ต้องมี Unit Tests สำหรับ CPU Instructions, ISA Encoding, Factorial และ Combination รวมถึง Integration Tests สำหรับการโหลดโปรแกรม การกำหนด Registers การ Execute คำสั่ง การเรียก Subroutine การคืนผลลัพธ์ และการอัปเดต GUI โดยต้องตรวจสอบว่าค่า Output จาก CPU Simulator ถูกต้องตรงกับ Python Reference Implementation และต้องตรวจสอบว่าการนับ Instruction Count สอดคล้องกับ Trace ที่เกิดขึ้นจริง
+ต้องทดสอบกรณี Input ผิดประเภท Input ว่าง จำนวนติดลบ ค่า r มากกว่า n Overflow, Infinite Loop, Invalid Opcode, Invalid Register และข้อผิดพลาดในการอ่านหรือเขียน Memory รวมถึงต้องทดสอบปุ่ม Run, Pause, Step และ Reset ว่าควบคุมสถานะ CPU ได้จริง โดย GUI ต้องไม่ค้างระหว่าง Run Mode และต้องไม่สูญเสียข้อมูล CPU State เมื่อ Pause
+ต้องกำหนดกติกาการทำงานร่วมกันให้ชัดเจน เช่น ห้ามเปลี่ยนชื่อ API หรือ Register Convention โดยไม่แจ้งสมาชิกอื่น ห้ามเพิ่ม Instruction โดยแก้เฉพาะ CPU Execution แต่ไม่แก้ ISA/Tests และห้ามรวมฟีเจอร์ใหม่เข้ากับ Main Branch ก่อนทดสอบผ่าน พร้อมจัดทำ Integration Checklist เพื่อให้สามารถตรวจสอบความพร้อมของแต่ละโมดูลก่อนรวมระบบได้
+14. Final Deliverables and Project Demonstration
+ผลลัพธ์สุดท้ายต้องเป็นโปรแกรม Python ที่สามารถเปิดและรันผ่าน VS Code ได้จริง โดยมี GUI ที่ให้ผู้ใช้เลือก Factorial หรือ nCr กรอก Input เลือกอัลกอริทึม และควบคุม CPU Simulator ผ่าน Run, Pause, Step และ Reset พร้อมแสดง PC, Registers, ALU Operations, Instruction Trace, Memory, Opcode, Machine Code, Output และ Performance Graph อย่างชัดเจน โปรแกรมต้องคำนวณ Factorial และ nCr ผ่าน MIPS Assembly ที่ Execute บน CPU Simulator จริง โดย nCr แบบ Factorial-Based ต้องเรียกใช้ Factorial Subroutine ร่วมกัน และต้องมี Optimized nCk เป็นวิธีเปรียบเทียบ พร้อมแสดงจำนวน Instruction ที่ใช้ในแต่ละอัลกอริทึม
+การสาธิตโปรเจกต์ควรเริ่มจากการคำนวณ 5! โดยกด Step เพื่อให้เห็นการเปลี่ยนแปลง Registers, PC และ ALU จากนั้นกด Run เพื่อคำนวณจนได้ 120 ต่อด้วยการคำนวณ 5C2 ผ่าน Factorial-Based Method เพื่อแสดงการเรียก Subroutine และผลลัพธ์ 10 จากนั้นเปลี่ยนเป็น Optimized nCk และรันด้วย Input เดียวกัน เพื่อยืนยันว่าผลลัพธ์เท่ากันและเปิดกราฟเปรียบเทียบ Dynamic Instruction Count พร้อมอธิบายความแตกต่างของอัลกอริทึมและความสัมพันธ์กับ Computer Architecture
+สิ่งที่ต้องส่งประกอบด้วย Source Code ที่จัดเป็นโมดูล, Assembly Programs, Requirements File, README สำหรับติดตั้งและรัน, Unit/Integration Tests, Test Results, Flowcharts, System Architecture Diagram, CPU Execution Diagram, Register Convention Documentation, Instruction Set Documentation, Algorithm Comparison Results และรายงานหรือสไลด์นำเสนอตามข้อกำหนดของอาจารย์
+15. Instructions for AI Teaching and Project Development
+เมื่อฉันใช้ Prompt นี้ ให้คุณเริ่มจากการวิเคราะห์ไฟล์ต้นฉบับที่ฉันแนบมาและตรวจสอบความเป็นไปได้ของทุกฟีเจอร์ก่อน จากนั้นสรุป System Architecture, Development Plan, File Structure, API Contract และ Task Assignment สำหรับสมาชิก 4 คน แล้วเริ่มสอนทำโปรเจกต์ตั้งแต่ Workshop แรกจนถึง Final Integration โดย สอนแบบ Step by Step อย่างละเอียด ไม่ข้ามขั้น ไม่สมมติว่าฉันหรือสมาชิกเข้าใจพื้นฐานทั้งหมด และไม่เขียนโค้ดทุกส่วนรวมกันในครั้งเดียวโดยไม่มีคำอธิบาย
+ในแต่ละ Workshop ให้แยกงานของสมาชิกทั้ง 4 คนอย่างชัดเจน ระบุว่าใครต้องทำอะไรใน VS Code เปิดไฟล์ไหน สร้างไฟล์อะไร เขียนโค้ดอะไร รันคำสั่งอะไร และต้องได้ Output แบบไหน พร้อมอธิบายหลักการ Computer Architecture ที่เกี่ยวข้อง เช่น Registers, PC, ALU, ISA, Instruction Format, Branch, Jump, Subroutine, Stack และ Memory อย่างเข้าใจง่าย โดยให้แยกชัดเจนระหว่าง โค้ดต้นฉบับของอาจารย์ โค้ดที่แก้ไขจากต้นฉบับ และโค้ดที่พัฒนาขึ้นใหม่ รวมถึงต้องอธิบายทุกครั้งว่าการเปลี่ยนแปลงนั้นส่งผลต่อโมดูลอื่นอย่างไร
+หากพบว่า Simulator เดิมมีบัคหรือยังไม่รองรับ Instruction ที่จำเป็น ให้ช่วยวิเคราะห์สาเหตุและแก้ไขอย่างเป็นระบบ พร้อมสร้าง Test Cases ก่อนนำไปใช้จริง หากต้องพัฒนา Feature ใหม่ เช่น JAL/JR, Machine Code Encoding, CPU State API หรือ Step Execution ให้แสดงโค้ดที่แก้ไขและวิธีทดสอบอย่างครบถ้วน ไม่อ้างว่าฟีเจอร์สำเร็จแล้วจนกว่าจะมีหลักฐานจากการรันทดสอบ และหากมีข้อจำกัดของ Simulator ที่ทำให้ฟีเจอร์บางอย่างยังไม่สามารถทำได้ ให้เสนอแนวทางที่เหมาะสมโดยไม่เปลี่ยนวัตถุประสงค์หลักของโปรเจกต์
+สุดท้าย ฉันต้องการให้คุณทำหน้าที่เป็นผู้สอนและที่ปรึกษาตลอดการพัฒนาโปรเจกต์ โดยค่อย ๆ พาสมาชิกทั้ง 4 คนทำงานตามหน้าที่ ตั้งแต่เริ่มตั้งค่าโปรเจกต์ เขียน Factorial พัฒนา nCr ปรับปรุง CPU Simulator สร้าง GUI เพิ่ม Visualization และ Performance Graph ไปจนถึงรวมระบบ ทดสอบ แก้บัค และเตรียมส่งงาน โดยต้องหยุดหลังจบแต่ละ Workshop เพื่อให้ฉันสามารถทดลองรันโค้ด ตรวจสอบผลลัพธ์ และแจ้งปัญหาก่อนเริ่ม Workshop ถัดไป เป้าหมายสูงสุดคือให้สมาชิกทุกคนเข้าใจโค้ดของตัวเอง เข้าใจการเชื่อมต่อของระบบ และสามารถอธิบายการทำงานของ MIPS CPU Simulator ได้อย่างถูกต้องในวันนำเสนอโปรเจกต์
 
-ต้องสร้าง Unit Tests สำหรับตรวจสอบ Machine Code Encoding และไม่แสดง Hex Code ที่ไม่ถูกต้องเป็น Machine Code จริง โดยต้องแยกคำสั่งมาตรฐาน MIPS ออกจาก Simulator-Specific Commands เช่น .ORG และ HALT ที่อาจเป็นคำสั่งเฉพาะของโปรแกรมจำลอง หากพัฒนาเพิ่มเติมได้ให้รองรับการ Decode Machine Code กลับเป็น Instruction Fields และการ Fetch Machine Code จาก Instruction Memory จริง แต่หากยัง Execute จาก Parsed Instruction
