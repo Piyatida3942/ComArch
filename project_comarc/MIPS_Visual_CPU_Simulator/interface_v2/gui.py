@@ -731,6 +731,7 @@ class App(tk.Tk):
             self._es_caps[key], self._es_vals[key] = cap, val
         self._insight_sig = None
         self._insight_widgets = []
+        self._es_job, self._es_step_no, self._es_cur, self._es_plan = None, None, -1, []
 
         # Execution History occupies the right-hand dashboard column.
         hc = make_card(fl, t, padx=14, pady=11)
@@ -874,6 +875,7 @@ class App(tk.Tk):
         fn()
 
     def _leave_sim(self):
+        self._es_cancel()
         if getattr(self, 'controller', None) is not None and self.screen == 'topic' and self.tab == 'sim':
             c = self.controller
             c.pause()
@@ -902,7 +904,7 @@ class App(tk.Tk):
                                   else self.tr('unit_instr', n='0'))
         self.chip_pc.configure(text=f"{self.tr('pc')} 0x{st.pc:08X}" if st else f"{self.tr('pc')} —")
         self._update_buttons(view)
-        self._update_execution_stages(step, mode)
+        self._update_execution_stages(step, mode, turbo)
         if turbo:                                   # Turbo: อัปเดตเฉพาะตัวเลขหลัก เพื่อไม่ให้หน้าจอค้าง
             self.ex_sentence.configure(text=self.tr('turbo_text'))
             return
@@ -990,33 +992,41 @@ class App(tk.Tk):
         autowrap(lbl, card.inner)
 
     # ---------------------------------------------------------------- CPU Execution Status stage tracker
-    def _stage_of(self, step):
-        """(ขั้นปัจจุบัน 0-4) ของคำสั่ง -- ซิมูเลเตอร์ทำคำสั่งทีเดียว จึงแสดงขั้นสุดท้ายที่เกี่ยวกับคำสั่งนั้น"""
+    STAGE_KEYS = ('stage_fetch', 'stage_decode', 'stage_execute', 'stage_memory', 'stage_writeback')
+
+    def _stage_plan(self, step):
+        """ลำดับขั้นที่คำสั่งนี้ผ่านจริง (index 0-4): Fetch -> Decode -> Execute -> [Memory] -> [Write Back]"""
         op = step.instr.op.upper()
         if op == 'SW':
-            return 3
-        if op in ('LW', 'ADD', 'ADDU', 'SUB', 'SUBU', 'ADDI', 'ADDIU', 'AND', 'OR', 'NOR', 'ANDI', 'ORI',
+            return [0, 1, 2, 3]
+        if op == 'LW':
+            return [0, 1, 2, 3, 4]
+        if op in ('ADD', 'ADDU', 'SUB', 'SUBU', 'ADDI', 'ADDIU', 'AND', 'OR', 'NOR', 'ANDI', 'ORI',
                   'SLT', 'SLTU', 'SLTI', 'SLTIU', 'SLL', 'SRL', 'LUI', 'JAL'):
-            return 4
-        return 2
+            return [0, 1, 2, 4]
+        return [0, 1, 2]
 
-    def _update_execution_stages(self, step, mode):
+    def _es_cancel(self):
+        job = getattr(self, '_es_job', None)
+        if job is not None:
+            try:
+                self.after_cancel(job)
+            except tk.TclError:
+                pass
+        self._es_job = None
+
+    def _es_draw(self, active, step, mode):
+        """วาดการ์ดตามขั้นที่ active (-1 = ยังไม่เริ่ม)"""
         t = self.t
-        if step is None:
-            active = -1
-            pill = self.tr('es_pill_ready')
-            head = self.tr('exec_status_ready').upper() if self.lang == 'en' else self.tr('exec_status_ready')
+        up = (lambda x: x.upper()) if self.lang == 'en' else (lambda x: x)
+        animating = self._es_job is not None
+        if step is None or active < 0:
+            pill, head = self.tr('es_pill_ready'), up(self.tr('exec_status_ready'))
+        elif mode == 'finished' and step.instr.op.upper() == 'HALT' and not animating:
+            pill, head = self.tr('es_pill_halted'), up(self.tr('exec_status_halted'))
         else:
-            active = self._stage_of(step)
-            key = ('stage_fetch', 'stage_decode', 'stage_execute', 'stage_memory', 'stage_writeback')[active]
-            head = self.tr(key).upper() if self.lang == 'en' else self.tr(key)
-            if mode == 'finished' and step.instr.op.upper() == 'HALT':
-                pill, head = self.tr('es_pill_halted'), (self.tr('exec_status_halted').upper() if self.lang == 'en'
-                                                         else self.tr('exec_status_halted'))
-            elif mode in ('running', 'paused', 'ready'):
-                pill = self.tr('es_pill_exec')
-            else:
-                pill = self.tr('es_pill_done')
+            head = up(self.tr(self.STAGE_KEYS[active]))
+            pill = self.tr('es_pill_exec') if (animating or mode == 'running') else self.tr('es_pill_done')
         self.exec_pill.configure(text=pill)
         self.exec_status_label.configure(text=head)
         for index, (bar, label, key) in enumerate(self.exec_stage_labels):
@@ -1024,6 +1034,35 @@ class App(tk.Tk):
             bar.set_color(t['primary'] if on else t['surface2'])
             label.configure(text=self.tr(key), fg=t['text'] if on else t['muted'],
                             font=self.f['small_b'] if on else self.f['small'])
+
+    def _es_tick(self, step, mode_fn, pos, per):
+        self._es_job = None
+        if not self._sim_ready:
+            return
+        self._es_cur = self._es_plan[pos]
+        if pos + 1 < len(self._es_plan):
+            self._es_job = self.after(per, self._es_tick, step, mode_fn, pos + 1, per)
+        self._es_draw(self._es_cur, step, mode_fn())
+
+    def _update_execution_stages(self, step, mode, turbo=False):
+        mode_fn = lambda: self.controller.mode if getattr(self, 'controller', None) is not None else mode
+        if step is None:
+            self._es_cancel()
+            self._es_step_no, self._es_cur, self._es_plan = None, -1, []
+            self._es_draw(-1, None, mode)
+            return
+        if step.step_no != self._es_step_no:                # คำสั่งใหม่ -> เริ่มวิ่งตั้งแต่ Fetch
+            self._es_cancel()
+            self._es_step_no = step.step_no
+            self._es_plan = self._stage_plan(step)
+            running = mode == 'running'
+            if turbo or (running and self._run_delay < 250):   # เร็วเกินจะเห็น (เช่น x10): ข้ามไปขั้นสุดท้าย
+                self._es_cur = self._es_plan[-1]
+            else:
+                per = int(self._run_delay * 0.8 / len(self._es_plan)) if running else 350
+                self._es_tick(step, mode_fn, 0, max(60, per))
+                return
+        self._es_draw(self._es_cur, step, mode)            # คำสั่งเดิม (เช่น เปลี่ยนโหมด) แค่วาดซ้ำ
 
     # ---------------------------------------------------------------- CPU Execution Status details
     def _update_instruction_insight(self, step, state, mode):
